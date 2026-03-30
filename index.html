@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noctis's Website</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&display=swap');
+
+        :root {
+            --cyan: #00f2fe;
+            --magenta: #ff00de;
+            --blue: #4facfe;
+            --dark-bg: #03001c;
+            --panel-bg: rgba(10, 10, 35, 0.8);
+            --text: #e0e0ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: crosshair; /* 駭客風十字游標 */
+        }
+
+        body {
+            font-family: 'Fira Code', monospace; /* 等寬字體更有科技感 */
+            background-color: var(--dark-bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* 防止滾動條破壞氣氛 */
+            position: relative;
+        }
+
+        /* --- 動態背景網格與掃描線 --- */
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 242, 254, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 254, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-position: center;
+            z-index: -2;
+            animation: gridMove 20s linear infinite;
+        }
+
+        body::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.25) 50%
+            );
+            background-size: 100% 4px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 30px 30px; }
+        }
+
+        /* --- 主容器：霓虹邊框與毛玻璃 --- */
+        .container {
+            background: var(--panel-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            width: 90%;
+            max-width: 700px;
+            padding: 3rem;
+            border-radius: 5px; /* 稍微方正一點更有工業感 */
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.2);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            overflow: hidden;
+        }
+
+        /* 容器角落的裝飾 */
+        .container::before {
+            content: "PROTOCOL_v2.1";
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            font-size: 0.7rem;
+            color: var(--cyan);
+            opacity: 0.5;
+        }
+
+        /* --- 標頭設計 --- */
+        header {
+            margin-bottom: 2.5rem;
+            position: relative;
+            text-align: left;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            /* 修改處：將名字顏色改為純白色，並移除所有動畫與霓虹燈效果 */
+            color: #ffffff;
+            letter-spacing: -2px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .nickname {
+            font-size: 1.2rem;
+            color: var(--text);
+            margin-top: 0.5rem;
+            opacity: 0.8;
+            border-left: 3px solid var(--magenta);
+            padding-left: 10px;
+        }
+
+        /* --- 自我介紹區域 --- */
+        .intro-section {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .intro-section::before {
+            content: "> ACCESSING PROFILE...";
+            display: block;
+            color: var(--cyan);
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .intro-section p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #cbd5e1;
+            white-space: normal; /* 恢復正常換行 */
+            width: auto;
+        }
+
+        strong {
+            color: var(--cyan);
+            font-weight: 600;
+        }
+
+        /* --- 標籤設計 --- */
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: transparent;
+            color: var(--magenta);
+            border: 1px solid var(--magenta);
+            padding: 8px 18px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            transition: all 0.3s;
+            /* 修改處：增加圓角，讓標籤看起來不再那麼方正 */
+            border-radius: 8px;
+        }
+
+        .tag:hover {
+            background: var(--magenta);
+            color: var(--dark-bg);
+            box-shadow: 0 0 15px var(--magenta);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        /* --- 按鈕設計 --- */
+        .btn-wrapper {
+            margin-top: 3rem;
+            text-align: right;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: transparent;
+            color: var(--cyan);
+            text-decoration: none;
+            border: 2px solid var(--cyan);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            box-shadow: inset 0 0 0 0 var(--cyan);
+            transition: all 0.4s ease;
+            /* 修改處：同時將下方的按鈕加上圓角，保持整體設計的一致性 */
+            border-radius: 8px;
+        }
+
+        .btn:hover {
+            color: var(--dark-bg);
+            box-shadow: inset 0 0 0 40px var(--cyan), 0 0 20px var(--cyan);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>鍾秉宸</h1>
+        <div class="nickname">Noctis</div>
+    </header>
+
+    <main class="intro-section">
+        <p>
+            Hello! I am a <strong>Computer Science</strong> student from Taiwan with a deep interest in building secure and efficient systems. 
+            I specialize in <strong>network security</strong> and <strong>containerization</strong>, often experimenting with OpenWrt and Docker environments. 
+            Beyond coding, I'm a music enthusiast who loves <strong>music production</strong> and exploring the art of sampling. 
+            My goal is to master cloud infrastructure and contribute to the future of cybersecurity.
+        </p>
+    </main>
+
+    <div class="tag-container">
+        <span class="tag">#CyberSecurity</span>
+        <span class="tag">#Docker</span>
+        <span class="tag">#OpenWrt</span>
+        <span class="tag">#React</span>
+        <span class="tag">#MusicProduction</span>
+    </div>
+
+    <div class="btn-wrapper">
+        <a href="jason1799678@google.com" class="btn">Contact Me</a>
+    </div>
+</div>
+
+</body>
+</html>
